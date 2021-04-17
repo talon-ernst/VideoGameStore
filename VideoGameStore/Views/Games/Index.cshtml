@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VideoGameStore.Models.Game>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Game Title</p>
+            </th>
+            <th>
+                <p>Game Description</p>
+            </th>
+            <th>
+                <p>Game Release Date</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameReleaseDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.gameGuid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
