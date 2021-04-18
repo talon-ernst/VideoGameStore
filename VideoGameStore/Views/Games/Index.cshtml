@@ -5,8 +5,23 @@
 }
 <title>@ViewData["Title"]</title>
 <h1>@ViewData["Title"]</h1>
+<p style="color: red;"><strong>@TempData["searchBoxErrors"]</strong></p>
+<form asp-action="ShowSearchResults">
+    <div>
+        <input id="searchPhrase" class="form-control" name="searchPhrase" style="width: 200px;" placeholder="Search for a game..."/>
+        <input type="submit" value="Search" class="btn btn-primary" id="btnSearch" name="btnSearch" style="margin-top: 10px;"/>
+        <select id="searchDropdown" name="searchDropdown">
+            <option value="Sort By">Sort By</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+            <option value="Newest">Newest Release</option>
+            <option value="Cheapest">Cheapest First</option>
+            <option value="Expensive">Most Expensive First</option>
+        </select>
+    </div>
+</form>
 
-<p>
+<br /><p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
@@ -19,29 +34,30 @@
                 <p>Game Description</p>
             </th>
             <th>
-                <p>Game Release Date</p>
+                <p>Game Price</p>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.gameTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gameDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gameReleaseDate)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a> |
-                <a asp-action="Edit" asp-route-id="@item.gameGuid">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gameTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gameDescription)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.gamePrice)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.gameGuid">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

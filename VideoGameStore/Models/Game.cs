@@ -16,7 +16,7 @@ namespace VideoGameStore.Models
         public DateTime gameReleaseDate { get; set; }
         public string gameDeveloper { get; set; }
         public string gamePublisher { get; set; }
-
+        public Decimal gamePrice { get; set; }
 
 
 

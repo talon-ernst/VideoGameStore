@@ -162,3 +162,4 @@ E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Delete.cshtm
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Details.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Edit.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Index.cshtml.g.cs
+E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Home\AboutMe.cshtml.g.cs

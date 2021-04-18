@@ -56,7 +56,7 @@ namespace VideoGameStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gameCategory,gameDeveloper,gamePublisher")] Game game)
+        public async Task<IActionResult> Create([Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gamePrice,gameCategory,gameDeveloper,gamePublisher")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace VideoGameStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gameCategory,gameDeveloper,gamePublisher")] Game game)
+        public async Task<IActionResult> Edit(Guid id, [Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gamePrice,gameCategory,gameDeveloper,gamePublisher")] Game game)
         {
             if (id != game.gameGuid)
             {
@@ -152,5 +152,79 @@ namespace VideoGameStore.Controllers
         {
             return _context.Game.Any(e => e.gameGuid == id);
         }
+
+
+        public async Task<IActionResult> ShowSearchResults(string searchPhrase)
+        {
+            bool isSearchEmpty;
+            if (searchPhrase == null) { isSearchEmpty = true; } else { isSearchEmpty = false; }
+
+            string selectedSearchCategory = Request.Form["searchDropdown"];
+
+            if(!String.IsNullOrEmpty(searchPhrase) && String.Equals(selectedSearchCategory, "Sort By"))
+            {
+                if (_context.Game.Where(j => j.gameTitle.Contains(searchPhrase)).Any())
+                {
+                    return View("Index", await _context.Game.Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
+                }
+                else if (_context.Game.Where(j => j.gameCategory.Contains(searchPhrase)).Any())
+                {
+                    return View("Index", await _context.Game.Where(j => j.gameCategory.Contains(searchPhrase)).ToListAsync());
+                }
+                else
+                {
+                    TempData["searchBoxErrors"] = "There were no results for what you searchced for";
+                    return View("Index", await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
+                }
+            }
+            else if (String.IsNullOrEmpty(searchPhrase) && !String.IsNullOrEmpty(selectedSearchCategory) || !String.IsNullOrEmpty(selectedSearchCategory) && !String.IsNullOrEmpty(searchPhrase))
+            {
+                switch (isSearchEmpty)
+                {
+                    case true:
+                        switch (selectedSearchCategory)
+                        {
+                            case "A-Z":
+                                return View("Index", await _context.Game.OrderBy(j => j.gameTitle).ToListAsync());
+                            case "Z-A":
+                                return View("Index", await _context.Game.OrderByDescending(j => j.gameTitle).ToListAsync());
+                            case "Newest":
+                                return View("Index", await _context.Game.OrderBy(j => j.gameReleaseDate).ToListAsync());
+                            case "Cheapest":
+                                return View("Index", await _context.Game.OrderBy(j => j.gamePrice).ThenBy(j => j.gameTitle).ToListAsync());
+                            case "Expensive":
+                                return View("Index", await _context.Game.OrderByDescending(j => j.gamePrice).ThenBy(j => j.gameTitle).ToListAsync());
+                            default:
+                                return View(await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
+                                
+                        }
+                        
+                    case false:
+                        switch (selectedSearchCategory)
+                        {
+                            case "A-Z":
+                                return View("Index", await _context.Game.OrderBy(j => j.gameTitle).Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
+                            case "Z-A":
+                                return View("Index", await _context.Game.OrderByDescending(j => j.gameTitle).Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
+                            case "Newest":
+                                return View("Index", await _context.Game.OrderBy(j => j.gameReleaseDate).Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
+                            case "Cheapest":
+                                return View("Index", await _context.Game.OrderBy(j => j.gamePrice).ThenBy(j => j.gameTitle).Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
+                            case "Expensive":
+                                return View("Index", await _context.Game.OrderByDescending(j => j.gamePrice).ThenBy(j => j.gameTitle).Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
+                            default:
+                                return View(await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
+                        }                                              
+                }
+             
+                     
+            }
+            else
+            {
+                TempData["searchBoxErrors"] = "You must enter something in order to search for something";
+                return View("Index", await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
+            }
+        }
+
     }
 }
