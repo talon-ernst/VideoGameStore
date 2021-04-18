@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,10 +23,11 @@ namespace VideoGameStore.Controllers
         // GET: Games
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Game.ToListAsync());
+            return View(await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
         }
 
         // GET: Games/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -54,7 +56,7 @@ namespace VideoGameStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate")] Game game)
+        public async Task<IActionResult> Create([Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gameCategory,gameDeveloper,gamePublisher")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +89,7 @@ namespace VideoGameStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate")] Game game)
+        public async Task<IActionResult> Edit(Guid id, [Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gameCategory,gameDeveloper,gamePublisher")] Game game)
         {
             if (id != game.gameGuid)
             {
@@ -117,7 +119,7 @@ namespace VideoGameStore.Controllers
             return View(game);
         }
 
-        // GET: Games/Delete/5
+        // GET: Games/Delete/5   
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)

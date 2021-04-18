@@ -1,36 +1,52 @@
 ﻿@model VideoGameStore.Models.Game
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Game Details";
 }
-
-<h1>Details</h1>
+<title>@ViewData["Title"]</title>
+<h1>Game Listing Details</h1>
 
 <div>
-    <h4>Game</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Game Title
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.gameTitle)
         </dd>
         <dt class="col-sm-2">
             Game Description
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.gameDescription)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Game Release Date
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.gameReleaseDate)
+        </dd>
+        <dt class="col-sm-2">
+            Game Category
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.gameCategory)
+        </dd>
+        <dt class="col-sm-2">
+            Game Developer
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.gameDeveloper)
+        </dd>
+        <dt class="col-sm-2">
+            Game Publisher
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.gamePublisher)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.gameGuid">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -1,12 +1,10 @@
 ﻿@model VideoGameStore.Models.Game
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit A Game Listing";
 }
-
-<h1>Edit</h1>
-
-<h4>Game</h4>
+<title>@ViewData["Title"]</title>
+<h1>@ViewData["Title"]</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,6 +25,21 @@
                 <label asp-for="gameReleaseDate" class="control-label">Game Release Date</label>
                 <input asp-for="gameReleaseDate" class="form-control" />
                 <span asp-validation-for="gameReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="gameCategory" class="control-label">Game Category</label>
+                <input asp-for="gameCategory" class="form-control" />
+                <span asp-validation-for="gameCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="gameDeveloper" class="control-label">Game Developer</label>
+                <input asp-for="gameDeveloper" class="form-control" />
+                <span asp-validation-for="gameDeveloper" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="gamePublisher" class="control-label">Game Publisher</label>
+                <input asp-for="gamePublisher" class="form-control" />
+                <span asp-validation-for="gamePublisher" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
