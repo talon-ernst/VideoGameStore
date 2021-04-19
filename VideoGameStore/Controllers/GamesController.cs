@@ -11,6 +11,7 @@ using VideoGameStore.Models;
 
 namespace VideoGameStore.Controllers
 {
+    [Authorize]
     public class GamesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,13 +22,13 @@ namespace VideoGameStore.Controllers
         }
 
         // GET: Games
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
         }
 
         // GET: Games/Details/5
-        [Authorize]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -46,6 +47,7 @@ namespace VideoGameStore.Controllers
         }
 
         // GET: Games/Create
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +58,7 @@ namespace VideoGameStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gamePrice,gameCategory,gameDeveloper,gamePublisher")] Game game)
         {
             if (ModelState.IsValid)
@@ -69,6 +72,7 @@ namespace VideoGameStore.Controllers
         }
 
         // GET: Games/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -89,6 +93,7 @@ namespace VideoGameStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id, [Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gamePrice,gameCategory,gameDeveloper,gamePublisher")] Game game)
         {
             if (id != game.gameGuid)
@@ -120,6 +125,7 @@ namespace VideoGameStore.Controllers
         }
 
         // GET: Games/Delete/5   
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -140,6 +146,7 @@ namespace VideoGameStore.Controllers
         // POST: Games/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var game = await _context.Game.FindAsync(id);
@@ -153,7 +160,7 @@ namespace VideoGameStore.Controllers
             return _context.Game.Any(e => e.gameGuid == id);
         }
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> ShowSearchResults(string searchPhrase)
         {
             bool isSearchEmpty;
@@ -195,8 +202,8 @@ namespace VideoGameStore.Controllers
                             case "Expensive":
                                 return View("Index", await _context.Game.OrderByDescending(j => j.gamePrice).ThenBy(j => j.gameTitle).ToListAsync());
                             default:
-                                return View(await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
-                                
+                                TempData["searchBoxErrors"] = "You must enter something in order to search for something";
+                                return RedirectToAction("Index", "Games");                        
                         }
                         
                     case false:
@@ -213,18 +220,19 @@ namespace VideoGameStore.Controllers
                             case "Expensive":
                                 return View("Index", await _context.Game.OrderByDescending(j => j.gamePrice).ThenBy(j => j.gameTitle).Where(j => j.gameTitle.Contains(searchPhrase)).ToListAsync());
                             default:
-                                return View(await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
+                                TempData["searchBoxErrors"] = "You must enter something in order to search for something";
+                                return RedirectToAction("Index", "Games");
                         }                                              
-                }
-             
-                     
+                }                    
             }
             else
             {
                 TempData["searchBoxErrors"] = "You must enter something in order to search for something";
-                return View("Index", await _context.Game.OrderBy(j => j.gameTitle).ThenBy(j => j.gameCategory).ToListAsync());
+                return RedirectToAction("Index", "Games");
             }
         }
+
+
 
     }
 }

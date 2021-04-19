@@ -53,9 +53,12 @@
                     $@Html.DisplayFor(modelItem => item.gamePrice)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@item.gameGuid">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a><br />
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.gameGuid">Edit</a><br />
+                        <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
+                    }
                 </td>
             </tr>
         }
