@@ -71,58 +71,6 @@ namespace VideoGameStore.Controllers
             return View(game);
         }
 
-        // GET: Games/Edit/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var game = await _context.Game.FindAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-            return View(game);
-        }
-
-        // POST: Games/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("gameGuid,gameTitle,gameDescription,gameReleaseDate,gamePrice,gameCategory,gameDeveloper,gamePublisher")] Game game)
-        {
-            if (id != game.gameGuid)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(game);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GameExists(game.gameGuid))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(game);
-        }
 
         // GET: Games/Delete/5   
         [Authorize(Roles = "Admin")]
@@ -231,8 +179,5 @@ namespace VideoGameStore.Controllers
                 return RedirectToAction("Index", "Games");
             }
         }
-
-
-
     }
 }

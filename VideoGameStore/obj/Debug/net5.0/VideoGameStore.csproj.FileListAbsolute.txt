@@ -157,10 +157,7 @@ E:\VideoGameStore\VideoGameStore\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis
 E:\VideoGameStore\VideoGameStore\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\VideoGameStore\VideoGameStore\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 E:\VideoGameStore\VideoGameStore\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
-E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Create.cshtml.g.cs
-E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Delete.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Details.cshtml.g.cs
-E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Edit.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Games\Index.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Home\AboutMe.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\AccessDenied.cshtml.g.cs
@@ -202,3 +199,8 @@ E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Acc
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Administrative\Index.cshtml.g.cs
+E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Administrative\AllGames.cshtml.g.cs
+E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Administrative\EditGame.cshtml.g.cs
+E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Administrative\Details.cshtml.g.cs
+E:\VideoGameStore\VideoGameStore\obj\Debug\net5.0\Razor\Views\Administrative\CreateGame.cshtml.g.cs

@@ -8,8 +8,9 @@
 <p style="color: red;"><strong>@TempData["searchBoxErrors"]</strong></p>
 <form asp-action="ShowSearchResults">
     <div>
-        <input id="searchPhrase" class="form-control" name="searchPhrase" style="width: 200px;" placeholder="Search for a game..."/>
-        <input type="submit" value="Search" class="btn btn-primary" id="btnSearch" name="btnSearch" style="margin-top: 10px;"/>
+        <input id="searchPhrase" class="form-control" name="searchPhrase" style="width: 200px;" placeholder="Search for a game..." />
+        <input type="submit" value="Search" class="btn btn-primary" id="btnSearch" name="btnSearch" style="margin-top: 10px; margin-bottom: 10px;" />
+        <a asp-action="Index" style="float: right;">Refresh Game List</a>
         <select id="searchDropdown" name="searchDropdown">
             <option value="Sort By">Sort By</option>
             <option value="A-Z">A-Z</option>
@@ -21,46 +22,22 @@
     </div>
 </form>
 
-<br /><p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <p>Game Title</p>
-            </th>
-            <th>
-                <p>Game Description</p>
-            </th>
-            <th>
-                <p>Game Price</p>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.gameTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.gameDescription)
-                </td>
-                <td>
-                    $@Html.DisplayFor(modelItem => item.gamePrice)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a><br />
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.gameGuid">Edit</a><br />
-                        <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@foreach (var item in Model)
+ { 
+<div style="border-style: solid; margin-bottom: 5px; width: 1000px; overflow: hidden;">
+    <p style="float: right; font-weight: bold; margin-right: 5px;">$@Html.DisplayFor(ModelItem => item.gamePrice)</p>
+    <a asp-controller="Games" asp-action="Details" asp-route-id="@item.gameGuid" style="text-decoration: none; color: black;">
+        <h3>@Html.DisplayFor(ModelItem => item.gameTitle)</h3>
+    </a>
+    <p style="margin-left: 10px;">Game Description: @Html.DisplayFor(ModelItem => item.gameDescription)</p>
+    <p style="margin-left: 10px;">Game Category: @Html.DisplayFor(ModelItem => item.gameCategory)</p>
+    <p style="margin-left: 10px;">Game Release Date: @Html.DisplayFor(ModelItem => item.gameReleaseDate)</p>
+    <div class="btn-group" style="float: right; margin-bottom: 5px; margin-right: 5px;">
+        <a asp-action="Index" asp-controller="Games" class="btn btn-primary btn-admin">Add To Cart</a>
+        <a asp-action="Index" asp-controller="Games" class="btn btn-primary btn-admin">Add Review</a>
+    </div>
+</div>
+   
+ }
+

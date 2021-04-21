@@ -1,14 +1,10 @@
 ﻿@model VideoGameStore.Models.Game
 
-@{
-    ViewData["Title"] = "Edit A Game Listing";
-}
-<title>@ViewData["Title"]</title>
-<h1>@ViewData["Title"]</h1>
+<h4>Game</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="EditGame">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="gameGuid" />
             <div class="form-group">
@@ -22,19 +18,14 @@
                 <span asp-validation-for="gameDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="gameReleaseDate" class="control-label">Game Release Date</label>
-                <input asp-for="gameReleaseDate" class="form-control" />
-                <span asp-validation-for="gameReleaseDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="gamePrice" class="control-label">Game Price</label>
-                <input asp-for="gamePrice" class="form-control" />
-                <span asp-validation-for="gamePrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="gameCategory" class="control-label">Game Category</label>
                 <input asp-for="gameCategory" class="form-control" />
                 <span asp-validation-for="gameCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="gameReleaseDate" class="control-label">Game Release Date</label>
+                <input asp-for="gameReleaseDate" class="form-control" />
+                <span asp-validation-for="gameReleaseDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="gameDeveloper" class="control-label">Game Developer</label>
@@ -47,6 +38,11 @@
                 <span asp-validation-for="gamePublisher" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="gamePrice" class="control-label">Game Price</label>
+                <input asp-for="gamePrice" class="form-control" />
+                <span asp-validation-for="gamePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -54,7 +50,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="AllGames">Back to List</a>
 </div>
 
 @section Scripts {

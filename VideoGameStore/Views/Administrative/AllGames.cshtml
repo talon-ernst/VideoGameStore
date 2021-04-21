@@ -1,0 +1,65 @@
+﻿@model IEnumerable<VideoGameStore.Models.Game>
+
+<p>
+    <a asp-action="CreateGame">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Game Title
+            </th>
+            <th>
+                Game Description
+            </th>
+            <th>
+                Game Category
+            </th>
+            <th>
+               Game Release Date
+            </th>
+            <th>
+                Game Developer
+            </th>
+            <th>
+                Game Publisher
+            </th>
+            <th>
+               Game Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gameDeveloper)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gamePublisher)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.gamePrice)
+            </td>
+            <td>
+                <a asp-action="EditGame" asp-route-id="@item.gameGuid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.gameGuid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.gameGuid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
